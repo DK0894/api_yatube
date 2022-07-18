@@ -29,14 +29,6 @@ class Post(models.Model):
         related_name="posts", blank=True, null=True
     )
 
-    # class Meta:
-    #     constraints = [
-    #         models.UniqueConstraint(
-    #             fields=['author', 'group'],
-    #             name='unique_author_group'
-    #         )
-    #     ]
-
     def __str__(self):
         return self.text
 

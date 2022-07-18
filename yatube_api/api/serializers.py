@@ -1,23 +1,15 @@
-from rest_framework import serializers
-
 from posts.models import Comment, Group, Post, User
+from rest_framework import serializers
 
 
 class PostSerializer(serializers.ModelSerializer):
-    author = serializers.PrimaryKeyRelatedField(
+    author = serializers.StringRelatedField(
         read_only=True, default=serializers.CurrentUserDefault()
     )
 
     class Meta:
         model = Post
-        fields = ('id', 'text', 'pub_date', 'author', 'image', 'group')
-
-        # validators = [
-        #     serializers.UniqueTogetherValidator(
-        #         queryset=Post.objects.all(),
-        #         fields=('author', 'group')
-        #     )
-        # ]
+        fields = ('id', 'text', 'author', 'image', 'group', 'pub_date')
 
 
 class GroupSerializer(serializers.ModelSerializer):
@@ -28,15 +20,9 @@ class GroupSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    # author = serializers.PrimaryKeyRelatedField(
-    #     read_only=True, default=serializers.CurrentUserDefault()
-    # )
-    # post = serializers.PrimaryKeyRelatedField(read_only=True)
-    post = serializers.PrimaryKeyRelatedField(read_only=True)
-    author = serializers.SlugRelatedField(
-        read_only=True, slug_field='username'
+    author = serializers.StringRelatedField(
+        read_only=True, default=serializers.CurrentUserDefault()
     )
-    print(author)
 
     class Meta:
         model = Comment
