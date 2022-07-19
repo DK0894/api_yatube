@@ -150,3 +150,5 @@ static/
 yatube_api/posts/static/
 media/
 
+# isort
+.isort.cfg
