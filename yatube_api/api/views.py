@@ -1,8 +1,7 @@
 from django.shortcuts import get_object_or_404
-from rest_framework import mixins, permissions, viewsets
+from rest_framework import permissions, viewsets
 
 from posts.models import Group, Post
-
 from .permissions import IsAuthorOrReadOnly
 from .serializers import CommentSerializer, GroupSerializer, PostSerializer
 
@@ -16,12 +15,7 @@ class PostViewSet(viewsets.ModelViewSet):
         serializer.save(author=self.request.user)
 
 
-class ListRetrieveViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin,
-                          viewsets.GenericViewSet):
-    pass
-
-
-class GroupViewSet(ListRetrieveViewSet):
+class GroupViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
 
